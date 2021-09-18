@@ -11,7 +11,7 @@ public class Main {
 
         for(int i = merkkijono.length()-1; i >= 0; i--) { //käy merkkijonon läpi väärinpäin
             char merkki = merkkijono.charAt(i); //hakee yksittäisen merkin
-            
+
             if(merkki != ',' && merkki != '.' && merkki != ' '){ //poistaa nämä merkit
                 kaannettyjono = kaannettyjono + merkki;
             }
@@ -19,16 +19,16 @@ public class Main {
 
         for(int i = 0; i < merkkijono.length(); i++) { //käy merkkijonon läpi oikeinpäin
             char merkki = merkkijono.charAt(i); //hakee yksittäisen merkin
-            
+
             if(merkki != ',' && merkki != '.' && merkki != ' '){ //poistaa nämä merkit
                 muokattujono = muokattujono + merkki;
             }
         }
-        
+
         if(muokattujono.equalsIgnoreCase(kaannettyjono)){
             System.out.println("Merkkijono on palindromi");
         } else {
             System.out.println("Merkkijono ei ole palindromi");
         }
     }
-}
+} 
