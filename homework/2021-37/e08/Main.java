@@ -9,7 +9,7 @@ public class Main {
         String merkkijono = c.readLine();
 
         for(int i = merkkijono.length()-1; i >= 0; i--) { 
-            kaannettyjono = kaannettyjono + merkkijono.charAt(i); // kaannettyjono kokoaa sanaa kirjain kerrallaan
+            kaannettyjono = kaannettyjono + merkkijono.charAt(i); // kaannettyjono kokoaa sanaa kirjain kerrallaan.
         }
 
         if(merkkijono.equals(kaannettyjono)){
