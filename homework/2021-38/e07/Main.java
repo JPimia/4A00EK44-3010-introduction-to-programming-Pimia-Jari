@@ -4,7 +4,7 @@ class Main {
        // luodaan taulukko jonka koko on 3. Sisältää 3 nollaa
         String [] taulukko = new String[6];  
 
-        // korvataan nollat arvoilla 101, 200 ja 999     
+        // korvataan nollat arvoilla 101, 200 ja 999
         taulukko[0] = "jussi";
         taulukko[1] = "jarmo";
         taulukko[2] = "jeesus";
@@ -14,7 +14,7 @@ class Main {
         
         // tulostetaan arvot
         //System.out.println(taulukko[0]);
-        //System.out.println(taulukko[1]);       
+        //System.out.println(taulukko[1]);
         //System.out.println(taulukko[2]);
 
         /*// yhdellä rivillä taulukon luonti, koon antaminen ja arvojen antaminen
