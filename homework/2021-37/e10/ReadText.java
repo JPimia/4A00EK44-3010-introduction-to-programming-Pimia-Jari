@@ -27,10 +27,9 @@ public class ReadText {
                     System.out.print(" ");
                 }
                 System.out.print("|");
-                for(int j = 0; j < rivinLuku; j++){
-
+                for(int j = 0; j < rivinLuku; j++)
                     System.out.print("+");
-                }
+                
             } else {
                 for(int k = pieninLuku - rivinLuku; k < 0; k++){
                     System.out.print(" ");
