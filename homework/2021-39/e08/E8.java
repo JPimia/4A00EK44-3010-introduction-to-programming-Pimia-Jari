@@ -10,17 +10,17 @@ public class E8 {
         square(korkeus);
     }
 
+    public static void square (int korkeus){
+        for(int i = 0; i < korkeus;  i++){
+            System.out.println(charRepeat("X", korkeus));
+        }
+    }
+
     public static String charRepeat (String merkki, int amount){
         String mj = "";
         for(int i = 0; i < amount; i++){
             mj += merkki;
         }
         return mj;
-    }
-
-    public static void square (int korkeus){
-        for(int i = 0; i < korkeus;  i++){
-            System.out.println(charRepeat("X", korkeus));
-        }
     }
 }
