@@ -1,8 +1,8 @@
 
 class E9 {
-    static int a = 5;
-    static int b = 5;
-    static int summa = a + b;
+    static int a;
+    static int b;
+    static int summa;
     public static void main(String [] args) {
         asetaA();
         asetaB();
@@ -11,15 +11,15 @@ class E9 {
     }
 
     public static void asetaA() {
-        int a = 5;
+        a = 5;
     }
 
     public static void asetaB() {
-        int b = 5;
+        b = 5;
     }
 
     public static void laskeYhteen() {
-    
+        summa = a + b;
     }
 
     public static void tulosta() {
