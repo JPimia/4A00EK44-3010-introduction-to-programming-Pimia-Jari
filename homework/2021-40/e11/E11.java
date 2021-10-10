@@ -1,6 +1,7 @@
 import java.io.Console;
 
 public class E11 {
+    static boolean gameRunning = true;
     static int totalMoney = 25;
     static int bet = 1;
     
@@ -8,13 +9,15 @@ public class E11 {
         Console c = System.console();
         
 
-        while (totalMoney >= bet){
-            System.out.println("Milla panoksella pelataan");
+        while (gameRunning){
+            System.out.println(totalMoney + " Euroa Pelivaraa. Anna panos?\n---");
             int panos = Integer.parseInt(c.readLine());
-            System.out.println(random('@', '!', '#', panos));
+            random('@', '!', '#', panos);
             totalMoney-=panos;
+            if(panos > totalMoney){
+                tarkistus(panos);
+            }
         }
-
     }
 
     public static String random (char a, char b, char c, int bet) {
@@ -35,21 +38,29 @@ public class E11 {
         return arvotutMerkit;
     }
 
-    public static void tulos (String result, int panoss) { 
-        
+    public static void tulos (String result, int panos) { 
+        boolean totuusarvo = false;
 
-        if(result.equals("@@@")){
-            System.out.println("Voitit!");
-            totalMoney +=3 * panoss;
-        } else if(result.equals("!!!")) {
-            System.out.println("Voitit!");
-            totalMoney +=3 * panoss;
-        } else if(result.equals("###")){
-            System.out.println("Voitit!");
-            totalMoney +=3 * panoss;
+        if(result.charAt(0) == result.charAt(1) && result.charAt(1) == result.charAt(2)){
+            totuusarvo = true;
         } else {
-            System.out.println("Havisit, yrita uudelleen");
+            totuusarvo = false;
         }
-        System.out.println("Saldosi on: " + totalMoney);
+        if(totuusarvo){
+            totalMoney +=3 * panos;
+            System.out.println(result + "\nVoitit!");
+            bet = 1;
+        } else {
+            System.out.println(result + "\nHavisit, yrita uudelleen\n");
+            bet = 1;
+        }
+    }
+    public static void tarkistus (int panos) {
+        if(panos > totalMoney && totalMoney > 0){
+            System.out.println("---Liian Suuri Panos---");
+        } else if (totalMoney <= 0){
+            System.out.println("---Rahat Loppuivat");
+            gameRunning = false;
+        }
     }
 }
