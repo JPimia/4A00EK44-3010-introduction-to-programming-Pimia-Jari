@@ -4,10 +4,13 @@ public class E10 {
     public static void main(String[] args) {
         Console c = System.console();
 
-        System.out.println("Anna korkeus");
+        System.out.println("Anna pelialueen koko (10+)");
         int korkeus = Integer.parseInt(c.readLine());
-        char[][] array = createBoard(korkeus);
-        print(array);
+
+        if(korkeus >= 10) {
+            char[][] array = createBoard(korkeus);
+            print(array);
+        }
     }
     public static char[][] createBoard (int korkeus) {
         char[][] myArray = new char[korkeus][korkeus];
