@@ -8,8 +8,10 @@ public class E15 {
         System.out.println("Loppuosan pituus: ");
         int pituus = Integer.parseInt(c.readLine());
 
-        for(int i = 5; i < mj.length(); i++){
-            System.out.print(mj.charAt(i));
+        for(int i = 0; i < mj.length(); i++){
+            if(i > pituus) {
+                System.out.print(mj.charAt(i));
+            }
         }
     }
 }
