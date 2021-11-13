@@ -19,6 +19,8 @@ class Ihminen extends Nisakas {
 public class Testi {
     public static void main(String[] args) {
         Koira musti = new Koira();
-        musti.synnyta();
+        Ihminen jeppe = new Ihminen();
+        musti.nuuhkiPyllyä();
+        jeppe.luoTaidetta();
     }
 }
