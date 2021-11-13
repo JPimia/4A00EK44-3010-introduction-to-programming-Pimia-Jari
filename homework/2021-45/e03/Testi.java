@@ -1,9 +1,10 @@
 
+
 class Ihminen {
     private String name;
 
     public void setName (String n) {
-        if(n.length() < 1) {
+        if(n.length() <= 0) {
             throw new IllegalArgumentException("liian lyhyt nimi");
         } else {
             this.name = n;
@@ -12,34 +13,36 @@ class Ihminen {
     public String getName() {
         return name;
     }
-
     public void nuku () {
-        System.out.println("ihminen nukkuu");
+        System.out.println(name + " ei nuku ikina");
     }
     public void syo () {
-        System.out.println("ihminen syo");
+        System.out.println(name + " syo pizzaa");
     }
     public void juo () {
-        System.out.println("ihminen juo");
+        System.out.println(name + " juo kaljaa");
     }
     public void lisaanny () {
-        System.out.println("ihminen lisaantyy");
+        System.out.println(name + " lisaantyy");
     }
     
 }
 
 class Ohjelmoija extends Ihminen {
+    public Ohjelmoija(String name) {
+        setName(name);
+    }
     public void osallistu() {
-        System.out.println("party party!");
+        System.out.println(getName() + " bilettaa");
     }
     public void ohjelmoi() {
-        System.out.println("ohjelmoi ohjelmoi!");
+        System.out.println(getName() + " ohjelmoi");
     }
 }
 
 public class Testi {
     public static void main(String[] args) {
-        Ohjelmoija human = new Ohjelmoija();
+        Ohjelmoija human = new Ohjelmoija("Jeesus");
         human.nuku();
         human.syo();
         human.juo();
