@@ -29,9 +29,7 @@ class Ihminen {
 }
 
 class Ohjelmoija extends Ihminen {
-    public Ohjelmoija(String name) {
-        setName(name);
-    }
+
     public void osallistu() {
         System.out.println(getName() + " bilettaa");
     }
@@ -42,7 +40,8 @@ class Ohjelmoija extends Ihminen {
 
 public class Testi {
     public static void main(String[] args) {
-        Ohjelmoija human = new Ohjelmoija("Jeesus");
+        Ohjelmoija human = new Ohjelmoija();
+        human.setName("Jeesus");
         human.nuku();
         human.syo();
         human.juo();
