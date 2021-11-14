@@ -32,10 +32,10 @@ public class Testi {
         method2(kalle); // method 2 ottaa parametrikseen ihminen tai siitä periytyvät.
         method3(musti); // koira periytyy nisakkaasta.
         method3(kalle); // ihminen periytyy nisakkaasta.
-        method4(musti); // kaikki menee läpi koska kaikki periytyy objectista.
-        method4("jeesus"); // kaikki menee läpi koska kaikki periytyy objectista.
-        method4(true); // kaikki menee läpi koska kaikki periytyy objectista.
-        method4(123123); // kaikki menee läpi koska kaikki periytyy objectista.
+        method4(musti); // menee läpi koska kaikki periytyy objectista.
+        method4("jeesus"); // menee läpi koska kaikki periytyy objectista.
+        method4(true); // menee läpi koska kaikki periytyy objectista.
+        method4(123123); // menee läpi koska kaikki periytyy objectista.
         
     }
     public static void method1(Koira a) {
