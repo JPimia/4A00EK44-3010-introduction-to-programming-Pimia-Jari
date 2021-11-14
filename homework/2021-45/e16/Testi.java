@@ -1,41 +1,28 @@
-abstract class Nisakas {
-    public void synnyta() {
-        System.out.println("synnytan lapsen.");
-    }
-    abstract void ääntelehdi();
+interface MyytavaAsia {
+    public void myy();
 }
 
-class Koira extends Nisakas {
-    public void nuuhkiPyllyä() {
-        System.out.println("nuuhkii toisen koiran pyllya");
-    }
-    public void ääntelehdi() {
-        System.out.println("hauhau");
+class EnergiaJuoma implements MyytavaAsia {
+    
+    public void myy() {
+        System.out.println("energiajuoma myyty");
+        
     }
 }
 
-class Ihminen extends Nisakas {
-    public void luoTaidetta() {
-        System.out.println("luo taidetta");
-    }
-    public void ääntelehdi() {
-        System.out.println("alamolo");
+class Koira implements MyytavaAsia {
+
+    public void myy() {
+        System.out.println("koira myyty");
     }
 }
 
 
 class Testi {
     public static void main(String [] args) {
-        Ihminen jeppe = new Ihminen();
-        Koira musti =  new Koira();
-        metodi(jeppe);
-        metodi(musti);
-
-    }
-    public static void metodi(Nisakas a) {
-        //a.nuuhkiPyllyä(); // ei toimi koska, ihmiset ei nuuhki perseitä
-        //a.luoTaidetta(); // ei toimi koska, koirat ei oo maalareisdfdsfta
-        a.ääntelehdi(); // toimii, koska kaikki ääntelehtii
+        EnergiaJuoma ed = new EnergiaJuoma();
+        Koira musti = new Koira();
+        ed.myy();
+        musti.myy();
     }
 }
-
