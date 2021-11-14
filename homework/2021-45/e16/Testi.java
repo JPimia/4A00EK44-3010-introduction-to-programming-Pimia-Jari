@@ -17,7 +17,6 @@ class Koira implements MyytavaAsia {
     }
 }
 
-
 class Testi {
     public static void main(String [] args) {
         EnergiaJuoma ed = new EnergiaJuoma();
