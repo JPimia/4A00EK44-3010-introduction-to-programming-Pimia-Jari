@@ -33,8 +33,8 @@ class Testi {
 
     }
     public static void metodi(Nisakas a) {
-        //a.nuuhkiPyllyä(); // ei toimi koska, parametrinä on nisakas eikä koira
-        //a.luoTaidetta(); // ei toimi koska, parametrinä on nisakas eikä ihminen
+        //a.nuuhkiPyllyä(); // ei toimi koska, ihmiset ei nuuhki perseitä
+        //a.luoTaidetta(); // ei toimi koska, koirat ei oo maalareita
         a.ääntelehdi(); // toimii, koska kaikki ääntelehtii
     }
 }
