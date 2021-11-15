@@ -33,7 +33,7 @@ class Ikkuna extends JFrame implements ActionListener, Runnable {
                 setLocation(getX() +1, getY());
             }
             try {
-                Thread.sleep(100);
+                Thread.sleep(1);
             } catch(Exception e) {
                 e.printStackTrace();
             }
