@@ -28,8 +28,15 @@ class Main extends Bird {
         pulu.lennä();
         pulu2.lennä();
         nimeton.lennä();
-        lennä(new Anonymous(){});
+
+        lennä(new Bird(){
+            @Override
+            public void lennä() {
+                System.out.println("Toinen Anonyymi lentaa");
+            }
+        });
     }
+
     public static void lennä(Bird b) {
         b.lennä();
     }
