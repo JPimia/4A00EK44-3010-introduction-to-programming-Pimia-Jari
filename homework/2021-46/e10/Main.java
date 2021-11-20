@@ -7,7 +7,7 @@ class MyWindow extends JFrame {
     public MyWindow() {
         click = new JButton("click");
         click.addActionListener(this::clicked);
-        // click.addActionListener(e -> clicked(e));
+        //click.addActionListener(e -> clicked(e));
         add(click);
     }
     public void clicked(ActionEvent e) {
