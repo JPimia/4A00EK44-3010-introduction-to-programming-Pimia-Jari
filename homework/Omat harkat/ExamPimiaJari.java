@@ -124,13 +124,10 @@ class ExamPimiaJari {
     // palauttaa taulukon {1, 3}
     //
     public static int[] exam4(int[] array) {
-        int[] nextArray = new int[4];
+        int[] nextArray = new int[array.length/2];
 
         for(int i = 0; i < array.length; i+=2) {
-            
                 nextArray[i] = array[i];
-                System.out.println(nextArray[i]);
-            
         }
         return nextArray;
     }
@@ -156,22 +153,24 @@ class ExamPimiaJari {
     // --X
     // --X
     // XXX
-    public static void exam5(int height) {
-        char character = 'X';
-        int row = height;
+    public static char[][] exam5(int height) {
 
-        String[][] array = new String [5][5];
+        char[][] array = new char [height][height];
 
         for(int i = 0; i < height; i++) {
-            if(height == 0 || height == -1) {
-                array[i][] 
-
+            for(int j = 0; j < height; j++) {
+                if(i == height -1 || j == height -1 || i == 0 || j == 0 || i == j || i == height - i - 1) {
+                    array[i][j] = 'X';
+                } else {
+                    array[i][j] = '-';
+                }
+                System.out.print(array[i][j]);
             }
-            for(int j = 0) {
-
-            }
+            System.out.println();
         }
+        return array;
     }
+    
 
     // OLIO-OHJELMOINNIN JA KOKONAISUUDEN HALLINTA - 6 p
     // Toteuta luokkakaavio luokille Kuvio, Ympyra ja Suorakaide.
@@ -194,7 +193,115 @@ class ExamPimiaJari {
     // Testaa luokkiasi luomalla niistä olioita exam6 metodista kasin.
 
     public static void exam6() {
+        abstract class Kuvio {
+            private int x;
+            private int y;
+            abstract public double getArea ();
 
+            public void setX (int x) {
+                if(x >= 0) {
+                    this.x = x;
+                } else {
+                    throw new IllegalArgumentException("Only positive saatana");
+                }
+            }
+
+            public int getX () {
+                return x;
+            }
+
+            public void setY (int y) {
+                if(y >= 0) {
+                    this.y = y;
+                } else {
+                    throw new IllegalArgumentException("Only positive saatana");
+                }
+            }
+
+            public int getY () {
+                return y;
+            }
+
+            public Kuvio (int x, int y) {
+                setX(x);
+                setY(y);
+            }
+
+            public String toString () {
+                return "X = " + x + ", y = " + y;
+            }
+
+        }
+        class Ympyra extends Kuvio {
+            private int radius;
+
+            public Ympyra (int x, int y, int radius) {
+                super(x, y);
+                setRadius(radius);
+            }
+            public double getArea () {
+                return Math.PI * radius * radius;
+            }
+            public void setRadius (int radius) {
+                if(radius >= 0) {
+                    this.radius = radius;
+                } else {
+                    throw new IllegalArgumentException("Only positive saatana");
+                }
+            }
+            public int getRadius () {
+                return radius;
+            }
+
+            public String toString () {
+                return super.toString() + ", radius = " + radius;
+            }
+        }
+
+        class Suorakaide extends Kuvio {
+            private int height;
+            private int width;
+
+            public Suorakaide (int x, int y, int h, int w) {
+                super(x, y);
+                setHeight(h);
+                setWidth(w);
+            }
+            public double getArea () {
+                return width * height;
+            }
+            public void setHeight (int height) {
+                if(height >= 0) {
+                    this.height = height;
+                } else {
+                    throw new IllegalArgumentException("Only positive saatana");
+                }
+            }
+
+            public void setWidth (int width) {
+                if(width >= 0) {
+                    this.width = width;
+                } else {
+                    throw new IllegalArgumentException("Only positive saatana");
+                }
+            }
+
+            public int getHeight () {
+                return height;
+            }
+
+            public int getWidth () {
+                return width;
+            }
+
+            public String toString () {
+                return super.toString() + ", width = " + width + ", height = " + height;
+            }
+        }
+        Ympyra y = new Ympyra(1, 3, 5);
+        Suorakaide s = new Suorakaide(2, 2, 5, 5);
+        System.out.println(s.getArea());
+        System.out.println(y.getArea());
     }
 
     public static void main (String[] args) {
@@ -203,8 +310,8 @@ class ExamPimiaJari {
         //exam2();
         //exam3("x", 7);
         //exam4(finalArray);
-        exam5(5);
-
+        //exam5(5);
+        exam6();
     }
 }
 
