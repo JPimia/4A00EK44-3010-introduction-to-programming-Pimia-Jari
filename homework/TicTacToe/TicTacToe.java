@@ -67,6 +67,13 @@ public class TicTacToe {
         System.out.print("Play" + playerNames[playerTurn] + ": ");
         x = Integer.parseInt(c.readLine());
         y = Integer.parseInt(c.readLine());
+
+        if(x > size || y > size) {
+            throw new IllegalArgumentException("Wrong position, give new one: ")
+        } else {
+            x = Integer.parseInt(c.readLine());
+            y = Integer.parseInt(c.readLine());
+        }
         playerTurn++;
     }
 
@@ -78,7 +85,7 @@ public class TicTacToe {
     }
 
     public void movePlacement(String[] playerNames, char[][] gameBoard) {
-        
+
     }
     
     private boolean isBoardFilled() {
