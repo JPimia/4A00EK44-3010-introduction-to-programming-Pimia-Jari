@@ -1,25 +1,24 @@
 import java.io.Console;
 
 public class TicTacToe {
-    
-
+    Console c = System.console();
     
     private char[][] gameBoard;
     private int playerTurn;
-    String[] playerNames = new String[2];
-    int size;
+    private String[] playerNames = new String[2];
+    private int size = 6;
     private int need;
+    private int x, y;
     
 
     public void askDetails() { // Kysytään pelin aloittamiseen tarvittavat asiat
-        Console c = System.console();
         System.out.println("Tervetuloa pelaamaan ristinollaa, anna pelaajalle 1 nimi: ");
         playerNames[0] = c.readLine();
         System.out.println("Anna pelaajalle 2 nimi: ");
         playerNames[1] = c.readLine();
 
         System.out.println("Anna pelialustan koko: ");
-        int size = Integer.parseInt(c.readLine());
+        size = Integer.parseInt(c.readLine());
         System.out.println("Montako perakkäin tarvitaan voittoon? ");
         need = Integer.parseInt(c.readLine());
 
@@ -34,6 +33,7 @@ public class TicTacToe {
     public void runGame() { 
         
         createBoard(size);
+
         
         /*while(!checkWin('O') && !isBoardFilled()) {
             break;
@@ -42,10 +42,10 @@ public class TicTacToe {
     
     public void createBoard(int size) {
         gameBoard = new char[size][size];
-        printBoard();
+        printBoard(size);
     }
     
-    private void printBoard() {
+    private void printBoard(int size) {
         for(int row = 0; row < gameBoard.length; row++) {
             for(int col = 0; col < gameBoard[row].length; col++) {
                 if(gameBoard[row][col] == 0) {
@@ -61,6 +61,24 @@ public class TicTacToe {
             
             System.out.println();
         }
+    }
+
+    public void playerTurn(int playerTurn) {
+        System.out.print("Play" + playerNames[playerTurn] + ": ");
+        x = Integer.parseInt(c.readLine());
+        y = Integer.parseInt(c.readLine());
+        playerTurn++;
+    }
+
+    public void computerTurn(int playerTurn) {
+        System.out.print("Computer plays" + playerNames[playerTurn] + ": ");
+        x = (int) (Math.random() * gameBoard.length * gameBoard.length);
+        y = (int) (Math.random() * gameBoard.length * gameBoard.length);
+        playerTurn = 0;
+    }
+
+    public void movePlacement(String[] playerNames, char[][] gameBoard) {
+        
     }
     
     private boolean isBoardFilled() {
