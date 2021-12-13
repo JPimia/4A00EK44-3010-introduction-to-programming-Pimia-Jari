@@ -29,22 +29,35 @@ public class TicTacToe {
     }
     
     public void runGame() { 
-        
-        createBoard(size);
+        createBoard();
+        while(true) {
+            printBoard();
+            checkTurns();
+            movePlacement();
+            
+        }
 
+        
         
         /*while(!checkWin('O') && !isBoardFilled()) {
             break;
         }*/
     }
     
-    public void createBoard(int size) {
+    public void createBoard() {
         gameBoard = new char[size][size];
-        printBoard(size);
     }
     
-    private void printBoard(int size) {
+    private void printBoard() {
+        System.out.print('+');
+        for(int i = 0; i < gameBoard.length; i++) {
+            System.out.print(" " + (i + 1));
+        }
+        System.out.println();
         for(int row = 0; row < gameBoard.length; row++) {
+            
+                System.out.print((row + 1) + " ");
+            
             for(int col = 0; col < gameBoard[row].length; col++) {
                 if(gameBoard[row][col] == 0) {
                     System.out.print("-");
@@ -57,12 +70,20 @@ public class TicTacToe {
             }
             System.out.println();
         }
-        checkTurns(playerTurn);
+        
     }
 
-    public void checkTurns(int playerTurn) {
+    public boolean isValidMove() {
+        if(gameBoard[x][y] != '-') {
+            return true;
+        } 
+        return false;
+    }
+
+    public void checkTurns() {
         if(playerTurn == 0) {
             playerTurn();
+            playerTurn++;
         } else {
             computerTurn();
             playerTurn = 0;
@@ -70,33 +91,31 @@ public class TicTacToe {
     }
 
     public void playerTurn() {
-        System.out.print(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
-        x = Integer.parseInt(c.readLine());
-        y = Integer.parseInt(c.readLine());
+        System.out.println(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
+        x = Integer.parseInt(c.readLine())-1;
+        y = Integer.parseInt(c.readLine())-1;
 
         if(x > size || y > size) {
-            System.out.println("Wrong position, give new one: ");
-            x = Integer.parseInt(c.readLine());
-            y = Integer.parseInt(c.readLine());
+            System.out.println("Can't position outside of gameboard, give new position: ");
+            x = Integer.parseInt(c.readLine())-1;
+            y = Integer.parseInt(c.readLine())-1;
         } 
-        playerTurn++;
-        movePlacement(playerTurn, gameBoard);
     }
 
     public void computerTurn() {
-        System.out.print(playerNames[playerTurn] + " Played!");
+        System.out.println(playerNames[playerTurn] + " Played!");
         x = (int) (Math.random() * gameBoard.length);
         y = (int) (Math.random() * gameBoard.length);
-        movePlacement(playerTurn, gameBoard);
+        
+        
     }
 
-    public void movePlacement(int playerTurn, char[][] gameBoard) {
+    public void movePlacement() {
         if(playerTurn == 0) {
             gameBoard[x][y] = 'X';
         } else if(playerTurn == 1) {
             gameBoard[x][y] = 'O';
         }
-        printBoard(size);
     }
     
     private boolean isBoardFilled() {
