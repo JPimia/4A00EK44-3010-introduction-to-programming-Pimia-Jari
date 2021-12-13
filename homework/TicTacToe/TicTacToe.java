@@ -22,9 +22,7 @@ public class TicTacToe {
         System.out.println("Montako perakkäin tarvitaan voittoon? ");
         need = Integer.parseInt(c.readLine());
 
-        if(need > size) {
-            throw new IllegalArgumentException("Ei voi ylittaa pelilaudan kokoa!");
-        } else {
+        while(need > size) {
             System.out.println("Anna uusi tarvittava maara: ");
             need = Integer.parseInt(c.readLine());
         }
@@ -75,6 +73,7 @@ public class TicTacToe {
             y = Integer.parseInt(c.readLine());
         }
         playerTurn++;
+        movePlacement(playerTurn, gameBoard);
     }
 
     public void computerTurn(int playerTurn) {
@@ -84,8 +83,13 @@ public class TicTacToe {
         playerTurn = 0;
     }
 
-    public void movePlacement(String[] playerNames, char[][] gameBoard) {
-
+    public void movePlacement(int playerTurn, char[][] gameBoard) {
+        if(playerTurn == 0) {
+            gameBoard[x][y] = 'X';
+        } else if(playerTurn == 1) {
+            gameBoard[x][y] = 'O';
+        }
+        
     }
     
     private boolean isBoardFilled() {
