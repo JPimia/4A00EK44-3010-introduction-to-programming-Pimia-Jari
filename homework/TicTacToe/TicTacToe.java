@@ -51,36 +51,43 @@ public class TicTacToe {
                 } else {
                     System.out.print(gameBoard[row][col]);
                 }
-                
                 if(col < gameBoard[row].length - 1) {
                     System.out.print("|");
                 }
             }
-            
             System.out.println();
         }
+        checkTurns(playerTurn);
     }
 
-    public void playerTurn(int playerTurn) {
-        System.out.print("Play" + playerNames[playerTurn] + ": ");
+    public void checkTurns(int playerTurn) {
+        if(playerTurn == 0) {
+            playerTurn();
+        } else {
+            computerTurn();
+            playerTurn = 0;
+        } 
+    }
+
+    public void playerTurn() {
+        System.out.print(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
         x = Integer.parseInt(c.readLine());
         y = Integer.parseInt(c.readLine());
 
         if(x > size || y > size) {
-            throw new IllegalArgumentException("Wrong position, give new one: ")
-        } else {
+            System.out.println("Wrong position, give new one: ");
             x = Integer.parseInt(c.readLine());
             y = Integer.parseInt(c.readLine());
-        }
+        } 
         playerTurn++;
         movePlacement(playerTurn, gameBoard);
     }
 
-    public void computerTurn(int playerTurn) {
-        System.out.print("Computer plays" + playerNames[playerTurn] + ": ");
-        x = (int) (Math.random() * gameBoard.length * gameBoard.length);
-        y = (int) (Math.random() * gameBoard.length * gameBoard.length);
-        playerTurn = 0;
+    public void computerTurn() {
+        System.out.print(playerNames[playerTurn] + " Played!");
+        x = (int) (Math.random() * gameBoard.length);
+        y = (int) (Math.random() * gameBoard.length);
+        movePlacement(playerTurn, gameBoard);
     }
 
     public void movePlacement(int playerTurn, char[][] gameBoard) {
@@ -89,7 +96,7 @@ public class TicTacToe {
         } else if(playerTurn == 1) {
             gameBoard[x][y] = 'O';
         }
-        
+        printBoard(size);
     }
     
     private boolean isBoardFilled() {
@@ -115,5 +122,4 @@ public class TicTacToe {
         game.askDetails();
         game.runGame();
     }
-    
 }
