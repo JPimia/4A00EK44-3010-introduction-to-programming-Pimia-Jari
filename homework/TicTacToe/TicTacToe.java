@@ -8,7 +8,8 @@ public class TicTacToe {
     private String[] playerNames = new String[2];
     private int size = 6;
     private int need;
-    private int x, y;
+    private int x, y = 1;
+    private boolean isValid;
     
 
     public void askDetails() { // Kysytään pelin aloittamiseen tarvittavat asiat
@@ -30,11 +31,15 @@ public class TicTacToe {
     
     public void runGame() { 
         createBoard();
-        while(true) {
-            printBoard();
-            checkTurns();
-            movePlacement();
-            
+        if(size < 10 && size > 3) {
+            while(true) {
+                printBoard();
+                checkTurns();
+                isValidMove();
+                if(isValid) {
+                    movePlacement();
+                }
+            }
         }
 
         
@@ -49,7 +54,7 @@ public class TicTacToe {
     }
     
     private void printBoard() {
-        System.out.print('+');
+        System.out.print('0');
         for(int i = 0; i < gameBoard.length; i++) {
             System.out.print(" " + (i + 1));
         }
@@ -73,7 +78,7 @@ public class TicTacToe {
         
     }
 
-    public boolean isValidMove() {
+    public boolean isValidMove() { //tarkastaa onko ruutu vapaa
         if(gameBoard[x][y] != '-') {
             return true;
         } 
@@ -91,11 +96,12 @@ public class TicTacToe {
     }
 
     public void playerTurn() {
-        System.out.println(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
-        x = Integer.parseInt(c.readLine())-1;
-        y = Integer.parseInt(c.readLine())-1;
-
-        if(x > size || y > size) {
+        
+            System.out.println(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
+            x = Integer.parseInt(c.readLine())-1;
+            y = Integer.parseInt(c.readLine())-1;
+        
+        if(x > size || y > size ) {
             System.out.println("Can't position outside of gameboard, give new position: ");
             x = Integer.parseInt(c.readLine())-1;
             y = Integer.parseInt(c.readLine())-1;
