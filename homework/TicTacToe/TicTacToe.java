@@ -29,7 +29,7 @@ public class TicTacToe {
         }
     }
     
-    public void runGame() { 
+    public void runGame() { //ajetaan peliä
         createBoard();
         if(size < 10 && size > 3) {
             while(true) {
@@ -49,11 +49,11 @@ public class TicTacToe {
         }*/
     }
     
-    public void createBoard() {
+    public void createBoard() { //Luodaan Pelikenttä
         gameBoard = new char[size][size];
     }
     
-    private void printBoard() {
+    private void printBoard() { //Tulostetaan Pelikenttä
         System.out.print('0');
         for(int i = 0; i < gameBoard.length; i++) {
             System.out.print(" " + (i + 1));
@@ -85,7 +85,7 @@ public class TicTacToe {
         return false;
     }
 
-    public void checkTurns() {
+    public void checkTurns() { //Tarkistetaan kenen vuoro
         if(playerTurn == 0) {
             playerTurn();
             playerTurn++;
@@ -95,7 +95,7 @@ public class TicTacToe {
         } 
     }
 
-    public void playerTurn() {
+    public void playerTurn() { //Pelaaja vuoro antaa x, y
         
             System.out.println(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
             x = Integer.parseInt(c.readLine())-1;
@@ -108,7 +108,7 @@ public class TicTacToe {
         } 
     }
 
-    public void computerTurn() {
+    public void computerTurn() { //Tietokone arpoo x, y
         System.out.println(playerNames[playerTurn] + " Played!");
         x = (int) (Math.random() * gameBoard.length);
         y = (int) (Math.random() * gameBoard.length);
@@ -116,7 +116,7 @@ public class TicTacToe {
         
     }
 
-    public void movePlacement() {
+    public void movePlacement() { // Asetetaan X tai O Pelikentälle
         if(playerTurn == 0) {
             gameBoard[x][y] = 'X';
         } else if(playerTurn == 1) {
@@ -124,7 +124,7 @@ public class TicTacToe {
         }
     }
     
-    private boolean isBoardFilled() {
+    private boolean isBoardFilled() { //Tarkistetaan onko tasapeli
         int emptyCells = gameBoard.length * gameBoard.length;
 
         for(int row = 0; row < gameBoard.length; row++) {
