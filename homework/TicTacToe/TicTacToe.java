@@ -10,17 +10,45 @@ public class TicTacToe {
     private int need;
     private int x, y = 1;
     private boolean isValid;
+    private boolean boardSize, askDetails, needInARow;
     
 
     public void askDetails() { // Kysytään pelin aloittamiseen tarvittavat asiat
-        System.out.println("Tervetuloa pelaamaan ristinollaa, anna pelaajalle 1 nimi: ");
-        playerNames[0] = c.readLine();
-        System.out.println("Anna pelaajalle 2 nimi: ");
-        playerNames[1] = c.readLine();
+        System.out.println("---------------------------------");
+        System.out.println("Tervetuloa pelaamaan ristinollaa!");
+        while(!askDetails) {
+            try {
+                System.out.print("Anna pelaajalle 1 nimi: ");
+                playerNames[0] = c.readLine();
+                System.out.println();
+                System.out.print("Anna pelaajalle 2 nimi: ");
+                playerNames[1] = c.readLine();
+                askDetails = true;
+            } catch (Exception e) {
+                System.out.print("Wrong argument.. Try again please: ");
+            }
+            
+        }
 
         System.out.println("Anna pelialustan koko: ");
-        size = Integer.parseInt(c.readLine());
-        System.out.println("Montako perakkäin tarvitaan voittoon? ");
+        while(!boardSize) {
+            try {
+                size = Integer.parseInt(c.readLine());
+                if(size > 9) {
+                    System.out.print("Liian suuri pelilauta, anna uusi pelilaudan koko: ");
+                } else if(size < 3) {
+                    System.out.print("Liian pieni pelilauta, anna uusi pelilaudan koko: ");
+                } else {
+                    boardSize = true;
+                }
+            } catch (Exception e) {
+                System.out.print("Wrong argument.. Only give numbers please: ");
+                
+                
+            }
+            
+        }
+        System.out.println("Montako perakkain tarvitaan voittoon? ");
         need = Integer.parseInt(c.readLine());
 
         while(need > size) {
@@ -38,7 +66,7 @@ public class TicTacToe {
                 isValidMove();
                 if(isValid) {
                     movePlacement();
-                }
+                } 
             }
         }
 
