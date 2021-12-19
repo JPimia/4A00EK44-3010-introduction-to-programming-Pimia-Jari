@@ -1,5 +1,7 @@
 import java.io.Console;
 
+import javax.print.attribute.Size2DSyntax;
+
 public class TicTacToe {
     Console c = System.console();
     
@@ -48,27 +50,35 @@ public class TicTacToe {
             }
             
         }
-        System.out.println("Montako perakkain tarvitaan voittoon? ");
-        need = Integer.parseInt(c.readLine());
 
-        while(need > size) {
-            System.out.println("Anna uusi tarvittava maara: ");
-            need = Integer.parseInt(c.readLine());
+        System.out.print("Montako perakkain tarvitaan voittoon: ");
+        while(!needInARow) {
+            try {
+                need = Integer.parseInt(c.readLine());
+                if(need > size) {
+                    System.out.print("Symbols needed cant exceed board size, please give new one: ");
+                } else if(need < 3) {
+                    System.out.print("Symbols needed cant be lower than 3, please give new one: ");
+                } else {
+                    needInARow = true;
+                }
+            } catch (Exception e) {
+                System.out.print("Wrong argument, give numbers only please: ");
+            }
         }
     }
     
     public void runGame() { //ajetaan peliä
         createBoard();
-        if(size < 10 && size > 3) {
             while(true) {
                 printBoard();
                 checkTurns();
                 isValidMove();
-                if(isValid) {
+                if(!isValid) {
                     movePlacement();
                 } 
             }
-        }
+        
 
         
         
@@ -107,9 +117,12 @@ public class TicTacToe {
     }
 
     public boolean isValidMove() { //tarkastaa onko ruutu vapaa
-        if(gameBoard[x][y] != '-') {
-            return true;
-        } 
+        if(gameBoard[x][y] == 'O' || gameBoard[x][y] == 'X') {
+            playerTurn = 0;
+            isValid = true;
+        } else {
+            isValid = false;
+        }
         return false;
     }
 
