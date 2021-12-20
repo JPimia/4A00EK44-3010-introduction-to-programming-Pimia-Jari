@@ -11,7 +11,6 @@ public class TicTacToe {
     private int size = 6;
     private int need;
     private int x, y = 1;
-    private boolean isValid;
     private boolean boardSize, askDetails, needInARow;
     
 
@@ -29,7 +28,6 @@ public class TicTacToe {
             } catch (Exception e) {
                 System.out.print("Wrong argument.. Try again please: ");
             }
-            
         }
 
         System.out.println("Anna pelialustan koko: ");
@@ -70,17 +68,11 @@ public class TicTacToe {
     
     public void runGame() { //ajetaan peliä
         createBoard();
-            while(true) {
-                printBoard();
-                checkTurns();
-                isValidMove();
-                if(!isValid) {
-                    movePlacement();
-                } 
-            }
-        
-
-        
+        while(!isBoardFilled()) {
+            printBoard();
+            checkTurns();
+            movePlacement();
+        }
         
         /*while(!checkWin('O') && !isBoardFilled()) {
             break;
@@ -89,6 +81,12 @@ public class TicTacToe {
     
     public void createBoard() { //Luodaan Pelikenttä
         gameBoard = new char[size][size];
+
+        for(int row = 0; row < gameBoard.length; row++) {
+            for(int col = 0; col < gameBoard[row].length; col++) {
+                gameBoard[row][col] = '-';
+            }
+        }
     }
     
     private void printBoard() { //Tulostetaan Pelikenttä
@@ -102,11 +100,7 @@ public class TicTacToe {
                 System.out.print((row + 1) + " ");
             
             for(int col = 0; col < gameBoard[row].length; col++) {
-                if(gameBoard[row][col] == 0) {
-                    System.out.print("-");
-                } else {
-                    System.out.print(gameBoard[row][col]);
-                }
+                System.out.print(gameBoard[row][col]);
                 if(col < gameBoard[row].length - 1) {
                     System.out.print("|");
                 }
@@ -114,16 +108,6 @@ public class TicTacToe {
             System.out.println();
         }
         
-    }
-
-    public boolean isValidMove() { //tarkastaa onko ruutu vapaa
-        if(gameBoard[x][y] == 'O' || gameBoard[x][y] == 'X') {
-            playerTurn = 0;
-            isValid = true;
-        } else {
-            isValid = false;
-        }
-        return false;
     }
 
     public void checkTurns() { //Tarkistetaan kenen vuoro
@@ -137,24 +121,36 @@ public class TicTacToe {
     }
 
     public void playerTurn() { //Pelaaja vuoro antaa x, y
+        boolean firstMove = true;
         
-            System.out.println(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
-            x = Integer.parseInt(c.readLine())-1;
-            y = Integer.parseInt(c.readLine())-1;
-        
-        if(x > size || y > size ) {
-            System.out.println("Can't position outside of gameboard, give new position: ");
-            x = Integer.parseInt(c.readLine())-1;
-            y = Integer.parseInt(c.readLine())-1;
-        } 
+        System.out.println(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
+
+        while(firstMove || x > size - 1 || y > size - 1 || x < 0 || y < 0 || gameBoard[x][y] != '-') {
+            if(!firstMove) {
+                System.out.println("Can't place symbol here, try again: ");
+            }
+            try {
+                x = Integer.parseInt(c.readLine())-1;
+                y = Integer.parseInt(c.readLine())-1;
+            } catch (Exception e) {
+                continue;
+            }
+            firstMove = false;
+        }
     }
 
     public void computerTurn() { //Tietokone arpoo x, y
+        boolean isValid = false;
         System.out.println(playerNames[playerTurn] + " Played!");
-        x = (int) (Math.random() * gameBoard.length);
-        y = (int) (Math.random() * gameBoard.length);
-        
-        
+        while(!isValid) {
+            int randomX = (int) (Math.random() * gameBoard.length);
+            int randomY = (int) (Math.random() * gameBoard.length);
+            if(gameBoard[randomX][randomY] == '-') {
+                x = randomX;
+                y = randomY;
+                isValid = true;
+            }
+        }
     }
 
     public void movePlacement() { // Asetetaan X tai O Pelikentälle
@@ -166,17 +162,15 @@ public class TicTacToe {
     }
     
     private boolean isBoardFilled() { //Tarkistetaan onko tasapeli
-        int emptyCells = gameBoard.length * gameBoard.length;
-
+        
         for(int row = 0; row < gameBoard.length; row++) {
             for(int col = 0; col < gameBoard[row].length; col++) {
-                if(gameBoard[row][col] != '-') {
-                    emptyCells--;
+                if(gameBoard[row][col] == '-') {
+                    return false;
                 }
             }
         }
-
-        return emptyCells == 0;
+        return true;
     }
     
     /*private boolean checkWin(char symbol) {
