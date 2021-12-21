@@ -71,6 +71,7 @@ public class TicTacToe {
             checkTurns();
             movePlacement();
         }
+        printBoard();
         
         /*while(!checkWin('O') && !isBoardFilled()) {
             break;
@@ -168,43 +169,66 @@ public class TicTacToe {
     }
 
     public boolean checkWin() {
-        int winCon = 0;
-        int symbolsNeeded = need;
         char playerSymbol = getPlayerSymbol();
+
+        return checkLines(playerSymbol) || checkDiagonals(playerSymbol);
+    }
+
+    private boolean checkLines(char symbol) {
+        int winVertical = 0;
+        int winHorizontal = 0;
+        int symbolsNeeded = need;
 
         for(int i = 0; i < gameBoard.length; i++) {
             for(int j = 0; j < gameBoard[i].length; j++) {
-                if(gameBoard[i][j] == playerSymbol) {
-                    winCon++;
-                    if(winCon == symbolsNeeded) {
-                        System.out.println("voitit!");
+                if(gameBoard[i][j] == symbol) {
+                    winHorizontal++;
+                    if(winHorizontal == symbolsNeeded) {
+                        System.out.println("voitit vaaka");
                         return true;
                     }
                 } else {
-                    winCon = 0;
+                    winHorizontal = 0;
+                }
+                if(gameBoard[j][i] == symbol) {
+                    winVertical++;
+                    if(winVertical == symbolsNeeded) {
+                        System.out.println("voitit pysty");
+                        return true;
+                    }
+                } else {
+                    winVertical = 0;
                 }
             }
         }
         return false;
     }
 
-    private boolean checkLines(char symbol) {
-        int winCon = 0;
+    private boolean checkDiagonals(char symbol) {
+        int diagLeft = 0;
+        int diagRight = 0;
         int symbolsNeeded = need;
-        char playerSymbol = getPlayerSymbol();
 
         for(int i = 0; i < gameBoard.length; i++) {
-            for(int j = 0; j < gameBoard[i].length; j++) {
-                if(gameBoard[i][j] == playerSymbol) {
-                    winCon++;
-                    if(winCon == symbolsNeeded) {
-                        System.out.println("voitit!");
-                        return true;
-                    }
-                } else {
-                    winCon = 0;
+            if(gameBoard[i][i] == symbol) {
+                diagLeft++;
+                if(diagLeft == symbolsNeeded) {
+                    System.out.println("voitit vaaka");
+                    return true;
                 }
+            } else {
+                diagLeft = 0;
             }
+            if(gameBoard[i][gameBoard.length-i-1] == symbol) {
+                diagRight++;
+                if(diagRight == symbolsNeeded) {
+                    System.out.println("voitit pysty");
+                    return true;
+                }
+            } else {
+                diagRight = 0;
+            }
+            
         }
         return false;
     }
