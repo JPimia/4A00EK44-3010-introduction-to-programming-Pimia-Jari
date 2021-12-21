@@ -1,7 +1,5 @@
 import java.io.Console;
 
-import javax.print.attribute.Size2DSyntax;
-
 public class TicTacToe {
     Console c = System.console();
     
@@ -68,7 +66,7 @@ public class TicTacToe {
     
     public void runGame() { //ajetaan peliä
         createBoard();
-        while(!isBoardFilled()) {
+        while(!isBoardFilled() && !checkWin()) {
             printBoard();
             checkTurns();
             movePlacement();
@@ -154,11 +152,7 @@ public class TicTacToe {
     }
 
     public void movePlacement() { // Asetetaan X tai O Pelikentälle
-        if(playerTurn == 0) {
-            gameBoard[x][y] = 'X';
-        } else if(playerTurn == 1) {
-            gameBoard[x][y] = 'O';
-        }
+            gameBoard[x][y] = getPlayerSymbol();
     }
     
     private boolean isBoardFilled() { //Tarkistetaan onko tasapeli
@@ -171,6 +165,56 @@ public class TicTacToe {
             }
         }
         return true;
+    }
+
+    public boolean checkWin() {
+        int winCon = 0;
+        int symbolsNeeded = need;
+        char playerSymbol = getPlayerSymbol();
+
+        for(int i = 0; i < gameBoard.length; i++) {
+            for(int j = 0; j < gameBoard[i].length; j++) {
+                if(gameBoard[i][j] == playerSymbol) {
+                    winCon++;
+                    if(winCon == symbolsNeeded) {
+                        System.out.println("voitit!");
+                        return true;
+                    }
+                } else {
+                    winCon = 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkLines(char symbol) {
+        int winCon = 0;
+        int symbolsNeeded = need;
+        char playerSymbol = getPlayerSymbol();
+
+        for(int i = 0; i < gameBoard.length; i++) {
+            for(int j = 0; j < gameBoard[i].length; j++) {
+                if(gameBoard[i][j] == playerSymbol) {
+                    winCon++;
+                    if(winCon == symbolsNeeded) {
+                        System.out.println("voitit!");
+                        return true;
+                    }
+                } else {
+                    winCon = 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    public char getPlayerSymbol() {
+        if(playerTurn == 0) {
+            return 'X';
+        } else {
+            return 'O';
+        }
     }
     
     /*private boolean checkWin(char symbol) {
