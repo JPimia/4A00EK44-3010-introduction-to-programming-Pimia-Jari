@@ -73,9 +73,6 @@ public class TicTacToe {
         }
         printBoard();
         
-        /*while(!checkWin('O') && !isBoardFilled()) {
-            break;
-        }*/
     }
     
     public void createBoard() { //Luodaan Pelikenttä
@@ -97,6 +94,7 @@ public class TicTacToe {
         for(int row = 0; row < gameBoard.length; row++) {
             
                 System.out.print((row + 1) + " ");
+
             
             for(int col = 0; col < gameBoard[row].length; col++) {
                 System.out.print(gameBoard[row][col]);
@@ -119,7 +117,7 @@ public class TicTacToe {
         } 
     }
 
-    public void playerTurn() { //Pelaaja vuoro antaa x, y
+    public void playerTurn() { //Pelaajan vuoro antaa X ja Y
         boolean firstMove = true;
         
         System.out.println(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
@@ -138,7 +136,7 @@ public class TicTacToe {
         }
     }
 
-    public void computerTurn() { //Tietokone arpoo x, y
+    public void computerTurn() { //Tietokone arpoo X ja Y
         boolean isValid = false;
         System.out.println(playerNames[playerTurn] + " Played!");
         while(!isValid) {
@@ -171,7 +169,7 @@ public class TicTacToe {
     public boolean checkWin() {
         char playerSymbol = getPlayerSymbol();
 
-        return checkLines(playerSymbol) || checkDiagonals(playerSymbol);
+        return checkLines(playerSymbol) || /*checkDiagonals(playerSymbol) ||*/ checkAllDiagonals(playerSymbol);
     }
 
     private boolean checkLines(char symbol) {
@@ -200,11 +198,13 @@ public class TicTacToe {
                     winVertical = 0;
                 }
             }
+            winHorizontal = 0;
+            winVertical = 0;
         }
         return false;
     }
 
-    private boolean checkDiagonals(char symbol) {
+    /*private boolean checkDiagonals(char symbol) {
         int diagLeft = 0;
         int diagRight = 0;
         int symbolsNeeded = need;
@@ -228,6 +228,95 @@ public class TicTacToe {
             } else {
                 diagRight = 0;
             }
+        }
+        return false;
+    }*/
+    private boolean checkAllDiagonals(char symbol) {
+        int symbolsNeeded = need;
+        int[] countOfSymbols = new int[6];
+
+        for (int i = 0; i < gameBoard.length; i++) {
+            
+                // down and right
+                    if (gameBoard[i][i] == symbol) {
+                        countOfSymbols[0]++;
+        
+                        if (countOfSymbols[0] == symbolsNeeded) {
+                            System.out.println("poikittain voitti");
+                            return true;
+                        }
+                    } else {
+                        countOfSymbols[0] = 0;
+                    }
+                    if (gameBoard[i][gameBoard.length - i - 1] == symbol) {
+                        countOfSymbols[1]++;
+        
+                        if (countOfSymbols[1] == symbolsNeeded) {
+                            System.out.println("poikittain voitti");
+                            return true;
+                        }
+                    } else {
+                        countOfSymbols[1] = 0;
+                    }
+
+                    
+                    if (i > 0 && gameBoard.length - 1 - i < symbolsNeeded) {
+                        for (int j = i; j < gameBoard[i].length; j++) {
+                            if(gameBoard[j][j - i] == symbol) { // Left to Right lower diagonals.
+                                countOfSymbols[2]++;
+        
+                                if (countOfSymbols[2] == symbolsNeeded) { 
+                                    System.out.println("poikittain voitti");
+                                    return true;
+                                }
+                            } else {
+                                countOfSymbols[2] = 0;
+                            }
+                            if(gameBoard[j - i][j] == symbol) { // Left to Right upper diagonals.
+                                countOfSymbols[3]++;
+        
+                                if (countOfSymbols[3] == symbolsNeeded) { 
+                                    System.out.println("poikittain voitti");
+                                    return true;
+                                }
+                            } else {
+                                countOfSymbols[3] = 0;
+                            }
+                            if(gameBoard[gameBoard.length - 1 - i][j - i] == symbol) { // Right to Left lower diagonals.
+                                countOfSymbols[4]++;
+        
+                                if (countOfSymbols[4] == symbolsNeeded) { 
+                                    System.out.println("poikittain voitti");
+                                    return true;
+                                }
+                            } else {
+                                countOfSymbols[4] = 0;
+                            }
+                            if(gameBoard[gameBoard.length - 1 + i][j] == symbol) { // Right to Left upper diagonals.
+                                countOfSymbols[5]++;
+        
+                                if (countOfSymbols[5] == symbolsNeeded) { 
+                                    System.out.println("poikittain voitti");
+                                    return true;
+                                }
+                            } else {
+                                countOfSymbols[5] = 0;
+                            }
+                            
+                        }
+                        countOfSymbols[2] = 0;
+                        countOfSymbols[3] = 0;
+                        countOfSymbols[4] = 0;
+                        countOfSymbols[5] = 0;
+                    }
+
+                    
+                
+                    
+                
+        
+                // down and left
+                
             
         }
         return false;
