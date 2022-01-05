@@ -1,18 +1,53 @@
 import java.io.Console;
 
+/**
+ * TecTacToe game.
+ * 
+ * @author Jari Pimiä
+ */
 public class TicTacToe {
-    Console c = System.console();
+    /**
+     * Stores console for input.
+     */
+    private final static Console c = System.console();
     
+    /**
+     * Stores gameboard.
+     */
     private char[][] gameBoard;
-    private int playerTurn;
-    private String[] playerNames = new String[2];
-    private int size = 6;
-    private int need;
-    private int x, y = 1;
-    private boolean boardSize, askDetails, needInARow;
-    
 
-    public void askDetails() { // Kysytään pelin aloittamiseen tarvittavat asiat
+    /**
+     * Stores which player is playing.
+     */
+    private int playerTurn;
+
+    /**
+     * Stores all player names.
+     */
+    private String[] playerNames = new String[2];
+
+    /**
+     * Stores amount of symbols needed to win the game.
+     */
+    private int need;
+
+    /**
+     * Stores X coordinate.
+     */
+    private int x = 1;
+
+    /**
+     * Stores Y coordinate.
+     */
+    private int y = 1;
+    
+    /**
+     * Asks needed details to run the game.
+     */
+    private void askDetails() {
+        boolean askDetails = false;
+        boolean boardIsSet = false;
+        boolean needInARow = false;
         System.out.println("---------------------------------");
         System.out.println("Tervetuloa pelaamaan ristinollaa!");
         while(!askDetails) {
@@ -29,7 +64,7 @@ public class TicTacToe {
         }
 
         System.out.println("Anna pelialustan koko: ");
-        while(!boardSize) {
+        while(!boardIsSet) {
             try {
                 size = Integer.parseInt(c.readLine());
                 if(size > 9) {
@@ -37,7 +72,7 @@ public class TicTacToe {
                 } else if(size < 3) {
                     System.out.print("Liian pieni pelilauta, anna uusi pelilaudan koko: ");
                 } else {
-                    boardSize = true;
+                    boardIsSet = true;
                 }
             } catch (Exception e) {
                 System.out.print("Wrong argument.. Only give numbers please: ");
@@ -60,8 +95,11 @@ public class TicTacToe {
             }
         }
     }
-    
-    public void runGame() { //ajetaan peliä
+
+    /**
+     * Runs the game.
+     */
+    public void runGame() {
         createBoard();
         while(!isBoardFilled() && !checkWin()) {
             printBoard();
@@ -72,11 +110,14 @@ public class TicTacToe {
         if(!checkWin()) {
             System.out.println("Game is a Draw!");
         } else {
-            System.out.println(getPlayerSymbol() + " is a winner!");
+            System.out.println(getPlayerName() +  " is a winner!");
         }
     }
     
-    public void createBoard() { //Luodaan Pelikenttä
+    /**
+     * Creates the gameboard.
+     */
+    private void createBoard() {
         gameBoard = new char[size][size];
 
         for(int row = 0; row < gameBoard.length; row++) {
@@ -86,7 +127,10 @@ public class TicTacToe {
         }
     }
     
-    private void printBoard() { //Tulostetaan Pelikenttä
+    /**
+     * Prints the gameboard.
+     */
+    private void printBoard() {
         System.out.print('0');
         for(int i = 0; i < gameBoard.length; i++) {
             System.out.print(" " + (i + 1));
@@ -106,20 +150,26 @@ public class TicTacToe {
         }
     }
 
-    public void checkTurns() { //Tarkistetaan kenen vuoro
+    /**
+     * Checks whos turn it is.
+     */
+    private void checkTurns() {
         if(playerTurn == 0) {
-            playerTurn();
             playerTurn++;
+            playerTurn();
         } else {
-            computerTurn();
             playerTurn = 0;
+            computerTurn();
         } 
     }
 
-    public void playerTurn() { //Pelaajan vuoro antaa X ja Y
+    /**
+     * Setup for player turn.
+     */
+    private void playerTurn() {
         boolean firstMove = true;
         
-        System.out.println(playerNames[playerTurn] + "'s turn to give cordinates for X, Y: ");
+        System.out.println(getPlayerName() + "'s turn to give cordinates for X, Y: ");
 
         while(firstMove || x > size - 1 || y > size - 1 || x < 0 || y < 0 || gameBoard[x][y] != '-') {
             if(!firstMove) {
@@ -135,9 +185,12 @@ public class TicTacToe {
         }
     }
 
-    public void computerTurn() { //Tietokone arpoo X ja Y
+    /**
+     * Setup for computer turn.
+     */
+    private void computerTurn() {
         boolean isValid = false;
-        System.out.println(playerNames[playerTurn] + " Played!");
+        System.out.println(getPlayerName() + " Played!");
         while(!isValid) {
             int randomX = (int) (Math.random() * gameBoard.length);
             int randomY = (int) (Math.random() * gameBoard.length);
@@ -149,12 +202,20 @@ public class TicTacToe {
         }
     }
 
-    public void movePlacement() { // Asetetaan X tai O Pelikentälle
+    /**
+     * Sets X and O symbols to gameboard.
+     */
+    private void movePlacement() {
             gameBoard[x][y] = getPlayerSymbol();
     }
-    
-    private boolean isBoardFilled() { //Tarkistetaan onko tasapeli
-        
+
+    /**
+     * Checks if board is filled.
+     * 
+     * @return True when gameboard is filled, false otherwise.
+     */
+    private boolean isBoardFilled() {
+
         for(int row = 0; row < gameBoard.length; row++) {
             for(int col = 0; col < gameBoard[row].length; col++) {
                 if(gameBoard[row][col] == '-') {
@@ -165,10 +226,22 @@ public class TicTacToe {
         return true;
     }
 
-    public boolean checkWin() {
+    /**
+     * Checks if someone has won the game.
+     * 
+     * @return True if someone has won, false otherwise.
+     */
+    private boolean checkWin() { 
         char playerSymbol = getPlayerSymbol();
         return checkLines(playerSymbol) || checkAllDiagonals(playerSymbol);
     }
+
+    /**
+     * Checks if player or computer has won vertically or horizontally.
+     * 
+     * @param symbol Player symbol to check.
+     * @return True if someone has won vertically or horizontally.
+     */
     private boolean checkLines(char symbol) {
         int winVertical = 0;
         int winHorizontal = 0;
@@ -199,6 +272,12 @@ public class TicTacToe {
         return false;
     }
 
+    /**
+     * Checks if player or computer has won diagonally.
+     * 
+     * @param symbol Player symbol to check.
+     * @return True if someone has won diagonally.
+     */
     private boolean checkAllDiagonals(char symbol) {
         int symbolsNeeded = need;
         int[] countOfSymbols = new int[6];
@@ -225,7 +304,6 @@ public class TicTacToe {
             }
 
             if (i > 0 && i < gameBoard.length - 1) {
-                System.out.println(i > 0 && gameBoard.length - 1 - i < symbolsNeeded);
                 for (int j = i; j < gameBoard[i].length; j++) {
                     if(checkSymbol(j, j - i, symbol)) { // Left to Right lower diagonals.
                         countOfSymbols[2]++;
@@ -274,6 +352,14 @@ public class TicTacToe {
         return false;
     }
 
+    /**
+     * Checks if given symbol is found in the gameboard.
+     * 
+     * @param row Row to check.
+     * @param col Column to check.
+     * @param symbol Player symbol to check.
+     * @return True if symbol is found in gameboard, false otherwise.
+     */
     private boolean checkSymbol (int row, int col, char symbol) {
         if(row >= 0 && row < gameBoard.length && col >= 0 && col < gameBoard[row].length) {
             return gameBoard[row][col] == symbol;
@@ -281,14 +367,33 @@ public class TicTacToe {
         return false;
     }
 
-    public char getPlayerSymbol() {
+    /**
+     * Gets player symbol.
+     * 
+     * @return 'X' if playerturn is 0, otherwise returns 'O'.
+     */
+    private char getPlayerSymbol() {
         if(playerTurn == 0) {
             return 'X';
         } else {
             return 'O';
         }
     }
+
+    /**
+     * Gets player name.
+     * 
+     * @return Player name with symbol as a String.
+     */
+    private String getPlayerName () {
+        return playerNames[playerTurn] + " (" + getPlayerSymbol() + ")";
+    }
     
+    /**
+     * Main method.
+     * 
+     * @param args Program arguments.
+     */
     public static void main(String args[]) {
         TicTacToe game = new TicTacToe();
         game.askDetails();
