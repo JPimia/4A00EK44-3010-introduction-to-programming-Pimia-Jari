@@ -32,6 +32,11 @@ public class TicTacToe {
     private int need;
 
     /**
+     * Stores board size for convenience.
+     */
+    private int size;
+
+    /**
      * Stores X coordinate.
      */
     private int x = 1;
@@ -48,8 +53,8 @@ public class TicTacToe {
         boolean askDetails = false;
         boolean boardIsSet = false;
         boolean needInARow = false;
-        System.out.println("---------------------------------");
-        System.out.println("Welcome to play TicTacToe by Jari Pimiä!");
+        System.out.println("----------------------------------------");
+        System.out.println("Welcome to play TicTacToe by Jari Pimia!");
         while(!askDetails) {
             try {
                 System.out.print("Give name for player1: ");
