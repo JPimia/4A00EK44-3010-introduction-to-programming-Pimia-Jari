@@ -49,13 +49,13 @@ public class TicTacToe {
         boolean boardIsSet = false;
         boolean needInARow = false;
         System.out.println("---------------------------------");
-        System.out.println("Tervetuloa pelaamaan ristinollaa!");
+        System.out.println("Welcome to play TicTacToe by Jari Pimiä!");
         while(!askDetails) {
             try {
-                System.out.print("Anna pelaajalle 1 nimi: ");
+                System.out.print("Give name for player1: ");
                 playerNames[0] = c.readLine();
                 System.out.println();
-                System.out.print("Anna pelaajalle 2 nimi: ");
+                System.out.print("Give name for player2: ");
                 playerNames[1] = c.readLine();
                 askDetails = true;
             } catch (Exception e) {
@@ -63,14 +63,14 @@ public class TicTacToe {
             }
         }
 
-        System.out.println("Anna pelialustan koko: ");
+        System.out.println("Give size for the gameboard: ");
         while(!boardIsSet) {
             try {
                 size = Integer.parseInt(c.readLine());
                 if(size > 9) {
-                    System.out.print("Liian suuri pelilauta, anna uusi pelilaudan koko: ");
+                    System.out.print("Given input is too large, give new size for gameboard: ");
                 } else if(size < 3) {
-                    System.out.print("Liian pieni pelilauta, anna uusi pelilaudan koko: ");
+                    System.out.print("Given input is too small, give new size for gameboard: ");
                 } else {
                     boardIsSet = true;
                 }
@@ -79,7 +79,7 @@ public class TicTacToe {
             }
         }
 
-        System.out.print("Montako perakkain tarvitaan voittoon: ");
+        System.out.print("How many symbols is needed in a row: ");
         while(!needInARow) {
             try {
                 need = Integer.parseInt(c.readLine());
