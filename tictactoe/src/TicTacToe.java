@@ -310,15 +310,6 @@ public class TicTacToe {
 
             if (i > 0 && i < gameBoard.length - 1) {
                 for (int j = i; j < gameBoard[i].length; j++) {
-                    if(checkSymbol(j, j - i, symbol)) { // Left to Right lower diagonals.
-                        countOfSymbols[2]++;
-                        
-                        if (countOfSymbols[2] == symbolsNeeded) { 
-                            return true;
-                        }
-                    } else {
-                        countOfSymbols[2] = 0;
-                    }
                     if(checkSymbol(j - i, j, symbol)) { // Left to Right upper diagonals.
                         countOfSymbols[3]++;
                         
@@ -328,7 +319,16 @@ public class TicTacToe {
                     } else {
                         countOfSymbols[3] = 0;
                     }
-                    if(checkSymbol(gameBoard.length - 1 - j, j - i, symbol)) { // Right to Left lower diagonals.
+                    if(checkSymbol(j, j - i, symbol)) { // Left to Right lower diagonals.
+                        countOfSymbols[2]++;
+                        
+                        if (countOfSymbols[2] == symbolsNeeded) { 
+                            return true;
+                        }
+                    } else {
+                        countOfSymbols[2] = 0;
+                    }
+                    if(checkSymbol(gameBoard.length - 1 - j, j - i, symbol)) { // Right to Left upper diagonals.
                         countOfSymbols[4]++;
                         
                         if (countOfSymbols[4] == symbolsNeeded) { 
@@ -337,7 +337,7 @@ public class TicTacToe {
                     } else {
                         countOfSymbols[4] = 0;
                     }
-                    if(checkSymbol(gameBoard.length - 1 - j + i, j, symbol)) { // Right to Left upper diagonals.
+                    if(checkSymbol(gameBoard.length - 1 - j + i, j, symbol)) { // Right to Left lower diagonals.
                         countOfSymbols[5]++;
                         
                         if (countOfSymbols[5] == symbolsNeeded) { 
